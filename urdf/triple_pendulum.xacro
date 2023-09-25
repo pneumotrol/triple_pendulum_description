@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+  <!-- ======================================== -->
+  <!-- Definitions of robot                     -->
+  <!-- ======================================== -->
+  <!--
+    parent:         name of parent coodination
+    parent_origin:  origin of parent coordination
+  -->
+  <xacro:macro name="triple_pendulum"
+    params="parent *parent_origin">
+    <!-- ======================================== -->
+    <!-- Include macros                           -->
+    <!-- ======================================== -->
+    <xacro:include filename="material.xacro" />
+
+    <!-- ======================================== -->
+    <!-- Linkages                                 -->
+    <!-- ======================================== -->
+    <!-- base_link -->
+    <link name="base_link" />
+
+    <!-- cart -->
+    <link name="cart">
+      <visual>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+        <geometry>
+          <box size="0.2 0.1 0.1" />
+        </geometry>
+        <material name="gray" />
+      </visual>
+      <inertial>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+        <mass value="1.0" />
+        <inertia
+          ixx="0.01"
+          iyy="0.01"
+          izz="0.01"
+          ixy="0.0"
+          iyz="0.0"
+          ixz="0.0" />
+      </inertial>
+    </link>
+
+    <!-- pendulum 1 -->
+    <link name="pendulum1">
+      <visual>
+        <origin xyz="0.0 0.0 ${0.323/2}" rpy="0.0 0.0 0.0" />
+        <geometry>
+          <box size="0.05 0.05 0.323" />
+        </geometry>
+        <material name="blue" />
+      </visual>
+      <inertial>
+        <origin xyz="0.0 0.0 0.215" rpy="0.0 0.0 0.0" />
+        <mass value="0.876" />
+        <inertia
+          ixx="0.013"
+          iyy="0.013"
+          izz="0.001"
+          ixy="0.0"
+          iyz="0.0"
+          ixz="0.0" />
+      </inertial>
+    </link>
+
+    <!-- pendulum 2 -->
+    <link name="pendulum2">
+      <visual>
+        <origin xyz="0.0 0.0 ${0.419/2}" rpy="0.0 0.0 0.0" />
+        <geometry>
+          <box size="0.05 0.05 0.419" />
+        </geometry>
+        <material name="green" />
+      </visual>
+      <inertial>
+        <origin xyz="0.0 0.0 0.269" rpy="0.0 0.0 0.0" />
+        <mass value="0.938" />
+        <inertia
+          ixx="0.024"
+          iyy="0.024"
+          izz="0.001"
+          ixy="0.0"
+          iyz="0.0"
+          ixz="0.0" />
+      </inertial>
+    </link>
+
+    <!-- pendulum 3 -->
+    <link name="pendulum3">
+      <visual>
+        <origin xyz="0.0 0.0 ${0.484/2}" rpy="0.0 0.0 0.0" />
+        <geometry>
+          <box size="0.05 0.05 0.484" />
+        </geometry>
+        <material name="red" />
+      </visual>
+      <inertial>
+        <origin xyz="0.0 0.0 0.226" rpy="0.0 0.0 0.0" />
+        <mass value="0.553" />
+        <inertia
+          ixx="0.018"
+          iyy="0.018"
+          izz="0.001"
+          ixy="0.0"
+          iyz="0.0"
+          ixz="0.0" />
+      </inertial>
+    </link>
+
+    <!-- ======================================== -->
+    <!-- Joints                                   -->
+    <!-- ======================================== -->
+    <!-- base_joint (parent -> base_link) -->
+    <joint name="base_joint" type="fixed">
+      <parent link="${parent}" />
+      <child link="base_link" />
+      <xacro:insert_block name="parent_origin" />
+    </joint>
+
+    <!-- slider (base_link -> cart) -->
+    <joint name="slider" type="prismatic">
+      <parent link="base_link" />
+      <child link="cart" />
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+      <axis xyz="1.0 0.0 0.0" />
+      <limit
+        lower="-0.7"
+        upper="0.7"
+        velocity="3.0"
+        effort="22.0" />
+    </joint>
+
+    <!-- joint1 (cart -> pendulum1) -->
+    <joint name="joint1" type="continuous">
+      <parent link="cart" />
+      <child link="pendulum1" />
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+      <axis xyz="0.0 1.0 0.0" />
+      <dynamics damping="0.215" friction="0.0" />
+    </joint>
+
+    <!-- joint2 (pendulum1 -> pendulum2) -->
+    <joint name="joint2" type="continuous">
+      <parent link="pendulum1" />
+      <child link="pendulum2" />
+      <origin xyz="0.0 0.0 0.323" rpy="0.0 0.0 0.0" />
+      <axis xyz="0.0 1.0 0.0" />
+      <dynamics damping="0.002" friction="0.0" />
+    </joint>
+
+    <!-- joint3 (pendulum2 -> pendulum3) -->
+    <joint name="joint3" type="continuous">
+      <parent link="pendulum2" />
+      <child link="pendulum3" />
+      <origin xyz="0.0 0.0 0.419" rpy="0.0 0.0 0.0" />
+      <axis xyz="0.0 1.0 0.0" />
+      <dynamics damping="0.002" friction="0.0" />
+    </joint>
+  </xacro:macro>
+</robot>

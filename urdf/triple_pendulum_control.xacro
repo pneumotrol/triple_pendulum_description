@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+  <!-- ======================================== -->
+  <!-- Definitions of ros2_control              -->
+  <!-- ======================================== -->
+  <!--
+      use_mock:   use mock hardware for simulation
+      use_gazebo: use Gazebo simulator
+      use_unity:  use Unity
+    -->
+  <xacro:macro name="triple_pendulum_control"
+    params="use_mock:=^|false use_gazebo:=^|false use_unity:=^|false">
+    <!-- ======================================== -->
+    <!-- ros2_control                             -->
+    <!-- ======================================== -->
+    <ros2_control name="triple_pendulum" type="system">
+      <!-- ======================================== -->
+      <!-- Hardwares                                -->
+      <!-- ======================================== -->
+      <hardware>
+        <!-- mock hardware -->
+        <xacro:if value="${use_mock}">
+          <plugin>mock_components/GenericSystem</plugin>
+        </xacro:if>
+
+        <!-- Gazebo -->
+        <xacro:if value="${use_gazebo}">
+          <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+        </xacro:if>
+
+        <!-- Unity -->
+        <xacro:if value="${use_unity}">
+          <!-- reserved -->
+        </xacro:if>
+      </hardware>
+
+      <!-- ======================================== -->
+      <!-- Joints                                   -->
+      <!-- ======================================== -->
+      <!-- slider (base_link -> cart) -->
+      <joint name="slider">
+        <!-- input -->
+        <command_interface name="position" />
+        <command_interface name="velocity" />
+        <command_interface name="effort" />
+
+        <!-- output -->
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="effort">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+      </joint>
+
+      <!-- joint1 (cart -> pendulum1) -->
+      <joint name="joint1">
+        <!-- output -->
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+      </joint>
+
+      <!-- joint2 (pendulum1 -> pendulum2) -->
+      <joint name="joint2">
+        <!-- output -->
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+      </joint>
+
+      <!-- joint3 (pendulum2 -> pendulum3) -->
+      <joint name="joint3">
+        <!-- output -->
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+      </joint>
+    </ros2_control>
+  </xacro:macro>
+</robot>

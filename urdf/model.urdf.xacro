@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="triple_pendulum">
+  <!-- ======================================== -->
+  <!-- Hardware selection swtich                -->
+  <!-- ======================================== -->
+  <xacro:arg name="use_mock" default="false" />
+  <xacro:arg name="use_gazebo" default="false" />
+  <xacro:arg name="use_unity" default="false" />
+  <xacro:arg name="controller_configs_for_gazebo" default="" />
+
+  <!-- ======================================== -->
+  <!-- Reference coordinate system              -->
+  <!-- ======================================== -->
+  <link name="world" />
+
+  <!-- ======================================== -->
+  <!-- robot model                              -->
+  <!-- ======================================== -->
+  <xacro:include filename="triple_pendulum.xacro" />
+  <xacro:triple_pendulum
+    parent="world">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </xacro:triple_pendulum>
+
+  <!-- ======================================== -->
+  <!-- ros2_control                             -->
+  <!-- ======================================== -->
+  <xacro:include filename="triple_pendulum_control.xacro" />
+  <xacro:triple_pendulum_control
+    use_mock="$(arg use_mock)"
+    use_gazebo="$(arg use_gazebo)"
+    use_unity="$(arg use_unity)" />
+
+  <!-- for Gazebo -->
+  <xacro:if value="$(arg use_gazebo)">
+    <gazebo reference="world" />
+
+    <!-- ros2_control plugin for Gazebo -->
+    <gazebo>
+      <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+        <parameters>$(arg controller_configs_for_gazebo)</parameters>
+      </plugin>
+    </gazebo>
+  </xacro:if>
+</robot>
