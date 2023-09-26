@@ -11,6 +11,12 @@
   <!-- ======================================== -->
   <!-- Definitions of materials                 -->
   <!-- ======================================== -->
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
   <material name="gray">
     <color rgba="0.2 0.2 0.2 1.0"/>
   </material>
@@ -27,7 +33,21 @@
   <!-- Linkages                                 -->
   <!-- ======================================== -->
   <!-- base_link -->
-  <link name="base_link"/>
+  <link name="base_link">
+    <visual>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="1.4 0.01 0.01"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <!-- dummy -->
+    <inertial>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      <mass value="1.0"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+    </inertial>
+  </link>
   <!-- cart -->
   <link name="cart">
     <visual>
@@ -95,7 +115,7 @@
   <joint name="base_joint" type="fixed">
     <parent link="world"/>
     <child link="base_link"/>
-    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 1.5"/>
   </joint>
   <!-- slider (base_link -> cart) -->
   <joint name="slider" type="prismatic">

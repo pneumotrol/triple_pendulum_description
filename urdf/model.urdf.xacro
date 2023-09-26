@@ -19,7 +19,7 @@
   <xacro:include filename="triple_pendulum.xacro" />
   <xacro:triple_pendulum
     parent="world">
-    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+    <origin xyz="0.0 0.0 1.5" rpy="0.0 0.0 0.0" />
   </xacro:triple_pendulum>
 
   <!-- ======================================== -->
