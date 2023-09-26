@@ -6,3 +6,21 @@ controller_manager:
     # register controllers to controller manager
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
+
+    effort_controller:
+      type: effort_controllers/JointGroupEffortController
+
+    passive_joint:
+      type: effort_controllers/JointGroupEffortController
+
+effort_controller:
+  ros__parameters:
+    joints:
+      - slider
+
+passive_joint:
+  ros__parameters:
+    joints:
+      - joint1
+      - joint2
+      - joint3

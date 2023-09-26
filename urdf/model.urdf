@@ -180,6 +180,8 @@
     </joint>
     <!-- joint1 (cart -> pendulum1) -->
     <joint name="joint1">
+      <!-- dummy input -->
+      <command_interface name="effort"/>
       <!-- output -->
       <state_interface name="position">
         <param name="initial_value">0.0</param>
@@ -190,6 +192,8 @@
     </joint>
     <!-- joint2 (pendulum1 -> pendulum2) -->
     <joint name="joint2">
+      <!-- dummy input -->
+      <command_interface name="effort"/>
       <!-- output -->
       <state_interface name="position">
         <param name="initial_value">0.0</param>
@@ -200,6 +204,8 @@
     </joint>
     <!-- joint3 (pendulum2 -> pendulum3) -->
     <joint name="joint3">
+      <!-- dummy input -->
+      <command_interface name="effort"/>
       <!-- output -->
       <state_interface name="position">
         <param name="initial_value">0.0</param>
