@@ -181,6 +181,8 @@
     <!-- joint1 (cart -> pendulum1) -->
     <joint name="joint1">
       <!-- dummy input -->
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
       <command_interface name="effort"/>
       <!-- output -->
       <state_interface name="position">
@@ -193,6 +195,8 @@
     <!-- joint2 (pendulum1 -> pendulum2) -->
     <joint name="joint2">
       <!-- dummy input -->
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
       <command_interface name="effort"/>
       <!-- output -->
       <state_interface name="position">
@@ -205,6 +209,8 @@
     <!-- joint3 (pendulum2 -> pendulum3) -->
     <joint name="joint3">
       <!-- dummy input -->
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
       <command_interface name="effort"/>
       <!-- output -->
       <state_interface name="position">

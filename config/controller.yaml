@@ -10,6 +10,12 @@ controller_manager:
     effort_controller:
       type: effort_controllers/JointGroupEffortController
 
+    fixed_cart:
+      type: position_controllers/JointGroupPositionController
+
+    fixed_joint:
+      type: position_controllers/JointGroupPositionController
+
     passive_joint:
       type: effort_controllers/JointGroupEffortController
 
@@ -17,6 +23,18 @@ effort_controller:
   ros__parameters:
     joints:
       - slider
+
+fixed_cart:
+  ros__parameters:
+    joints:
+      - slider
+
+fixed_joint:
+  ros__parameters:
+    joints:
+      - joint1
+      - joint2
+      - joint3
 
 passive_joint:
   ros__parameters:
