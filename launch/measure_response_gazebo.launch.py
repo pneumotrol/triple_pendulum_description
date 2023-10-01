@@ -42,8 +42,7 @@ def generate_launch_description():
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [FindPackageShare("gazebo_ros"), "/launch", "/gazebo.launch.py"]
-        ),
-        launch_arguments={"pause": "true"}.items(),
+        )
     )
 
     # spawn a triple pendulum model from /robot_description subscribe on Gazebo
