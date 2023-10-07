@@ -105,6 +105,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+          Value: true
         cart:
           Alpha: 1
           Show Axes: false
@@ -140,7 +141,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: world
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:
@@ -219,5 +220,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1500
-  X: 51
-  Y: 2
+  X: 19
+  Y: -30
