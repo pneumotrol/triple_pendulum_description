@@ -69,17 +69,17 @@ def generate_launch_description():
     )
 
     # effort controller for the cart
-    effort_controller = Node(
+    cart_effort_controller = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["effort_controller"],
+        arguments=["cart_effort_controller"],
     )
 
     # dummy controller for passive joints
-    passive_joint = Node(
+    pendulums_passive = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["passive_joint"],
+        arguments=["pendulums_passive"],
     )
 
     return LaunchDescription(
@@ -89,7 +89,7 @@ def generate_launch_description():
             gazebo,
             gazebo_spawner,
             joint_state_broadcaster,
-            effort_controller,
-            passive_joint,
+            cart_effort_controller,
+            pendulums_passive,
         ]
     )

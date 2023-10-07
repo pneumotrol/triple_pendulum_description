@@ -7,38 +7,39 @@ controller_manager:
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-    effort_controller:
+    cart_effort_controller:
       type: effort_controllers/JointGroupEffortController
 
-    fixed_cart:
+    cart_fixed:
       type: position_controllers/JointGroupPositionController
 
-    fixed_joint:
-      type: position_controllers/JointGroupPositionController
-
-    passive_joint:
+    pendulums_passive:
       type: effort_controllers/JointGroupEffortController
 
-effort_controller:
+    all_fixed:
+      type: position_controllers/JointGroupPositionController
+
+cart_effort_controller:
   ros__parameters:
     joints:
       - slider
 
-fixed_cart:
+cart_fixed:
   ros__parameters:
     joints:
       - slider
 
-fixed_joint:
+pendulums_passive:
   ros__parameters:
     joints:
       - joint1
       - joint2
       - joint3
 
-passive_joint:
+all_fixed:
   ros__parameters:
     joints:
+      - slider
       - joint1
       - joint2
       - joint3

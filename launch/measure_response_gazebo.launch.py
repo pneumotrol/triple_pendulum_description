@@ -59,25 +59,32 @@ def generate_launch_description():
         arguments=["joint_state_broadcaster"],
     )
 
-    # position controller to fix cart position
-    fixed_cart = Node(
+    # position controller for initial state setting
+    all_fixed = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["fixed_cart"],
+        arguments=["all_fixed"],
     )
 
-    # position controller for initial state setting
-    fixed_joint = Node(
+    # effort controller for cart
+    cart_effort_controller = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["fixed_joint"],
+        arguments=["cart_effort_controller", "--inactive"],
+    )
+
+    # dummy controller for fixed cart
+    cart_fixed = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["cart_fixed", "--inactive"],
     )
 
     # dummy controller for passive joints
-    passive_joint = Node(
+    pendulums_passive = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["passive_joint", "--inactive"],
+        arguments=["pendulums_passive", "--inactive"],
     )
 
     return LaunchDescription(
@@ -86,8 +93,9 @@ def generate_launch_description():
             gazebo,
             gazebo_spawner,
             joint_state_broadcaster,
-            fixed_cart,
-            fixed_joint,
-            passive_joint,
+            all_fixed,
+            cart_effort_controller,
+            cart_fixed,
+            pendulums_passive,
         ]
     )

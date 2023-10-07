@@ -124,6 +124,7 @@
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
     <axis xyz="1.0 0.0 0.0"/>
     <limit effort="22.0" lower="-0.7" upper="0.7" velocity="3.0"/>
+    <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <!-- joint1 (cart -> pendulum1) -->
   <joint name="joint1" type="continuous">
