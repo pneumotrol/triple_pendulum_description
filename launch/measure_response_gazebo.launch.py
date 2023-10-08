@@ -6,9 +6,9 @@ from launch_ros.substitutions import FindPackageShare
 from launch_ros.actions import Node
 
 
-# ros2 topic pub /fixed_joint/commands std_msgs/msg/Float64MultiArray "{data: [ANGLE_rad, 0.0, 0.0]}" --once
-# ros2 control switch_controllers --deactivate fixed_joint --activate passive_joint
-# ros2 control switch_controllers --deactivate passive_joint --activate fixed_joint
+# ros2 topic pub /all_fixed/commands std_msgs/msg/Float64MultiArray "{data: [0.0, ANGLE_rad, 0.0, 0.0]}" --once
+# ros2 control switch_controllers --deactivate all_fixed --activate cart_effort_controller pendulums_passive
+# ros2 control switch_controllers --activate all_fixed --deactivate cart_effort_controller pendulums_passive
 def generate_launch_description():
     package = "triple_pendulum_description"
 
